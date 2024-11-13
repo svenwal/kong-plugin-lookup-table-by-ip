@@ -33,6 +33,10 @@ function lookuptablebyip:access(config)
 	range_index = range_index + 1
     end
 
+    if not header_value then
+        header_value = config.default_value_if_lookup_fails
+    end
+
     kong.service.request.set_header(config.header_name, header_value)
 end
 
