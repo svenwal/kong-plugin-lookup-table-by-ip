@@ -33,9 +33,9 @@ function lookuptablebyip:access(config)
 	range_index = range_index + 1
     end
 
-    if not header_value then
+    if header_value == "" then
 	if config.fail_on_missing_lookup then
-	    kong.response.exit(config.fail_status_code, config.fail_status_message)
+	    kong.response.exit(config.fail_status_code, config.fail_status_message, {["Content-Type"] = config.fail_status_content_type})
 	else 
             header_value = config.default_value_if_lookup_fails
 	end
