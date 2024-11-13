@@ -1,6 +1,9 @@
+local typedefs = require "kong.db.schema.typedefs"
+
 return {
   name = "lookup-table-by-ip",
   fields = {
+    { protocols = typedefs.protocols_http },
     { config = {
         type = "record",
         fields = {
@@ -8,11 +11,11 @@ return {
                 { header_instead_of_ip = { type = "string",required = false,  default = "x-forwarded-ip"}, },
                 { header_name = { type = "string",required = true,  default = "x-kong-lookup"}, },
                 { default_value_if_lookup_fails = { type = "string",required = true,  default = "0"}, },
-		{ ip_ranges = { type = "array", required = true, default = {"application/xml"}, elements = { type = "string"}, }, },
-		{ header_value = { type = "array", required = true, default = {"application/xml"}, elements = { type = "string"}, }, },
+		            { ip_ranges = { type = "array", required = true, default = {"application/xml"}, elements = { type = "string"}, }, },
+		            { header_value = { type = "array", required = true, default = {"application/xml"}, elements = { type = "string"}, }, },
                 { fail_on_missing_lookup = { type = "boolean",required = false, default = false}, },
-                { config.fail_status_code = { type = "integer",required = false, default = 403}, },
-                { config.fail_status_message = { type = "string",required = false, default = "No valid IP address"}, },
+                { fail_status_code = { type = "integer",required = false, default = 403}, },
+                { fail_status_message = { type = "string",required = false, default = "No valid IP address"}, },
         },
       },
     },
@@ -21,3 +24,4 @@ return {
     -- Add any checks here if needed
   },
 }
+
