@@ -11,6 +11,8 @@ return {
 		{ ip_ranges = { type = "array", required = true, default = {"application/xml"}, elements = { type = "string"}, }, },
 		{ header_value = { type = "array", required = true, default = {"application/xml"}, elements = { type = "string"}, }, },
                 { fail_on_missing_lookup = { type = "boolean",required = false, default = false}, },
+                { config.fail_status_code = { type = "integer",required = false, default = 403}, },
+                { config.fail_status_message = { type = "string",required = false, default = "No valid IP address"}, },
         },
       },
     },

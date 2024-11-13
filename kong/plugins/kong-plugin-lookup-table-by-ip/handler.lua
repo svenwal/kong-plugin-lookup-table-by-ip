@@ -34,7 +34,11 @@ function lookuptablebyip:access(config)
     end
 
     if not header_value then
-        header_value = config.default_value_if_lookup_fails
+	if config.fail_on_missing_lookup then
+	    kong.response.exit(config.fail_status_code, config.fail_status_message)
+	else 
+            header_value = config.default_value_if_lookup_fails
+	end
     end
 
     kong.service.request.set_header(config.header_name, header_value)
